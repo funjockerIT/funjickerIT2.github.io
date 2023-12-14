@@ -1,46 +1,20 @@
+const latitudeInput = document.getElementById('latitudeInput');
+const resultElement = document.getElementById('result');
+const map = WE.map('map', { zoom: window.screen.width > 432 ? 2.8 : 1.6, dragging: true, scrollWheelZoom: true });
+
 let customLatitude = null;
 
-function setCustomLocation1(event) {
-    const earth = document.getElementById('earth_1');
-    const latitudeInput = document.getElementById('latitudeInput');
-    const rect = earth.getBoundingClientRect();
-    const y = event.clientY - rect.top;
+function init() {
+    map.on("click", function (e) {
+        customLatitude = e.latlng.lat.toFixed(5);
+        latitudeInput.value = customLatitude
+    });
 
-    const latitude = (90 - (y / rect.height) * 180).toFixed(0);
-
-    customLatitude = latitude;
-
-    // alert(`Выбрана точка: Широта ${latitude}`);
-
-    latitudeInput.value = customLatitude
+    WE.tileLayer('https://webglearth.github.io/webglearth2-offline/{z}/{x}/{y}.jpg', { tileSize: 200, tms: true }).addTo(map);
 }
-
-function setCustomLocation2(event) {
-    const earth = document.getElementById('earth_2');
-    const latitudeInput = document.getElementById('latitudeInput');
-    const rect = earth.getBoundingClientRect();
-    const y = event.clientY - rect.top;
-
-    const latitude = (90 - (y / rect.height) * 180).toFixed(0);
-
-    customLatitude = latitude;
-
-    // alert(`Выбрана точка: Широта ${latitude}`);
-
-    latitudeInput.value = customLatitude
-}
-
 
 function calculateGravity() {
-    const latitudeInput = document.getElementById('latitudeInput');
-    const resultElement = document.getElementById('result');
-    let latitude;
-
-    if (customLatitude !== null) {
-        latitude = customLatitude;
-    } else {
-        latitude = parseFloat(latitudeInput.value);
-    }
+    const latitude = parseFloat(latitudeInput.value);
 
     if (isNaN(latitude)) {
         alert('Введите корректное значение широты');
@@ -48,8 +22,7 @@ function calculateGravity() {
     }
 
     const gravity = calculateGravityAtLatitude(latitude);
-    // resultElement.textContent = `Ускорение свободного падения на широте ${latitude} равно ${gravity.toFixed(2)} м/с²`;
-    resultElement.textContent = `Ускорение свободного падения на широте ${latitude}° равно ${gravity.toFixed(5)} м/с²`;
+    resultElement.textContent = `На широте ${latitude}° g=${gravity.toFixed(3)} м/с²`;
 }
 
 function calculateGravityAtLatitude(latitude) {
@@ -61,6 +34,3 @@ function calculateGravityAtLatitude(latitude) {
     return g0 * (1 - omegaSquared * sinSquared) / Math.sqrt(1 - eSquared * sinSquared);
 }
 
-
-console.log(calculateGravityAtLatitude(0));   // Ускорение на экваторе
-console.log(calculateGravityAtLatitude(90));  // Ускорение на полюсах
