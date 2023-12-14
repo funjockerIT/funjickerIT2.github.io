@@ -8,23 +8,17 @@
     <title>Ускорение свободного падения</title>
 </head>
 
-<body>
-    <div class="wrap">
-        <div class="container">
-            <div id="earth_1" onclick="setCustomLocation1(event)">
-                <img src="img/earth_1.png" width="400" height="400" />
-            </div>
-            <div id="earth_2" onclick="setCustomLocation2(event)">
-                <img src="img/earth_2.png" width="400" height="400" />
-            </div>
-        </div>
-        <div class="flex">
-            <p id="result"></p>
-            <label for="latitudeInput">Введите широту:</label>
-            <input type="number" id="latitudeInput" step="1" placeholder="Широта" />
-            <button onclick="calculateGravity()">Рассчитать ускорение свободного падения</button>
-        </div>
+<body onload="init()">
+    <div class="window">
+        <p id="result">...</p>
+        <input type="number" id="latitudeInput" step="1" placeholder="Введите широту" />
+        <button onclick="calculateGravity()">Рассчитать ускорение свободного падения</button>
     </div>
+
+    <div id="map"></div>
+    </div>
+
+    <script src="https://www.webglearth.com/v2/api.js"></script>
     <script src="index.js"></script>
 </body>
 
