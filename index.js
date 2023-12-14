@@ -1,15 +1,18 @@
 const latitudeInput = document.getElementById('latitudeInput');
 const resultElement = document.getElementById('result');
-const map = WE.map('map', { zoom: window.screen.width > 432 ? 2.8 : 1.6, dragging: true, scrollWheelZoom: true });
-
+const plusBtn = document.getElementById('plus_btn');
+const minusBtn = document.getElementById('minus_btn');
+let zoom = window.screen.width > 432 ? 2.8 : 1.6;
 let customLatitude = null;
+
+const map = WE.map('map', { zoom: zoom, dragging: true, scrollWheelZoom: true });
 
 function init() {
     map.on("click", function (e) {
         customLatitude = e.latlng.lat.toFixed(5);
         latitudeInput.value = customLatitude
-    });
-
+    })
+    
     WE.tileLayer('https://webglearth.github.io/webglearth2-offline/{z}/{x}/{y}.jpg', { tileSize: 200, tms: true }).addTo(map);
 }
 
@@ -18,6 +21,10 @@ function calculateGravity() {
 
     if (isNaN(latitude)) {
         alert('Введите корректное значение широты');
+        return;
+    }
+    if (latitude > 90 || latitude < -90) {
+        alert('Введите широту от -90 до 90');
         return;
     }
 
@@ -34,3 +41,34 @@ function calculateGravityAtLatitude(latitude) {
     return g0 * (1 - omegaSquared * sinSquared) / Math.sqrt(1 - eSquared * sinSquared);
 }
 
+function zoomIn() {
+    zoom = map.getZoom()
+    zoom += 0.2
+    map.setZoom(zoom)
+}
+
+function zoomOut() {
+    zoom = map.getZoom()
+    zoom -= 0.2
+    map.setZoom(zoom)
+}
+
+function rotateTop() {
+    const pos = map.getPosition()
+    map.setCenter([pos[0] + 10, pos[1]])
+}
+
+function rotateBottom() {
+    const pos = map.getPosition()
+    map.setCenter([pos[0] - 10, pos[1]])
+}
+
+function rotateLeft() {
+    const pos = map.getPosition()
+    map.setCenter([pos[0], pos[1] - 10])
+}
+
+function rotateRight() {
+    const pos = map.getPosition()
+    map.setCenter([pos[0], pos[1] + 10])
+}
