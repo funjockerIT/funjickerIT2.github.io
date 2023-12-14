@@ -143,68 +143,76 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-image: url("https://resizer.mail.ru/p/0f5e6f6b-bba0-5c15-a3da-768ba961ee32/AQAKQcCeAWHwAxR41dEkN3hVCLyXbyJ6Y6bx_DH73kBRxdHsWzxDJuQVtIm73ME6y37XhX6j3zj553jDhQtRlIht9TQ.jpg");
+    background-image: url("https://images.unsplash.com/photo-1520034475321-cbe63696469a?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-}
-
-.wrap {
-    background-color: white;
-    padding: 60px 180px;
-    border-radius: 200px;
-}
-
-.container {
-    display: flex;
-    gap: 50px;
-}
-
-
-#earth {
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    position: relative;
-    border-radius: 50%;
-}
-
-img {
-    cursor: pointer;
-    border-radius: 50%;
-}
-
-#latitudeInput {
-    margin-bottom: 10px;
 }
 
 input {
     max-width: 400px;
     padding: 6px 10px;
     margin: 10px 0;
+    background: transparent;
+    border: 1px solid black;
+    outline: none;
 }
 
 button {
+    background-color: black;
+    color: white;
+    outline: none;
+    border: 0;
+    cursor: pointer;
+    user-select: none;
     max-width: 400px;
     padding: 6px 10px;
-    cursor: pointer;
-}
-
-label {
-    font-family: sans-serif;
-}
-
-.flex {
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 #result {
-    margin: 16px 0 ;
     text-align: center;
-    font-size: 18px;
-    height: 18px;
+    font-size: 16px;
+    height: 28px;
+    font-family: sans-serif;
+    background-color: black;
+    color: white;
+    padding: 6px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.cesium-credit-textContainer {
+    display: none;
+}
+
+
+#map {
+    cursor: pointer;
+    width: 100vw;
+    height: 100vh;
+}
+
+.window {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: white;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+@media (max-width: 432px) {
+    .window {
+        left: 20px;
+        padding: 10px;
+    }
+
+    #result {
+        font-size: 14px;
+    }
 }
